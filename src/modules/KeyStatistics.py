@@ -20,17 +20,6 @@ class Stat:
 
 path = Path(__file__).resolve().parent.parent / "data.json"
 
-# sample_size = 0
-# average = 0
-# standard_deviation = 0
-# coefficient_variation = 0
-# min = 0
-# max = 0
-# median = 0
-# moda = 0
-# excess = 0
-# asymmetry = 0
-
 
 def analiz(records):
     values = [float(r["value"]) for r in records]
