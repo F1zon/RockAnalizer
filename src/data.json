@@ -1,0 +1,14 @@
+{
+    "stat": {
+        "sample_size": 0,
+        "average": 0.0,
+        "standard_deviation": 0.0,
+        "coefficient_variation": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "median": 0.0,
+        "moda": 0.0,
+        "excess": 0.0,
+        "asymmetry": 0.0
+    }
+}
