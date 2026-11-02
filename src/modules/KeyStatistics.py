@@ -1,4 +1,5 @@
 import json
+import statistics as st
 
 from dataclasses import dataclass, asdict
 from pathlib import Path
@@ -19,26 +20,54 @@ class Stat:
 
 path = Path(__file__).resolve().parent.parent / "data.json"
 
-sample_size = 0
-average = 0
-standard_deviation = 0
-coefficient_variation = 0
-min = 0
-max = 0
-median = 0
-moda = 0
-excess = 0
-asymmetry = 0
-
-# Тут код писюкать...
+# sample_size = 0
+# average = 0
+# standard_deviation = 0
+# coefficient_variation = 0
+# min = 0
+# max = 0
+# median = 0
+# moda = 0
+# excess = 0
+# asymmetry = 0
 
 
+def analiz(records):
+    values = [float(r["value"]) for r in records]
+    # Массив выглядит примерно вот так: values = [67.0, 42.5, 90.0]
+    # Вот тут писюкать...
 
-####
+    n = len(values)
+    mean = sum(values) / n
 
-stats = Stat(sample_size=sample_size, average=average, standard_deviation=standard_deviation,
-             coefficient_variation=coefficient_variation, min=min, max=max,
-             median=median, moda=moda, excess=excess, asymmetry=asymmetry)
+    ###
+
+    return Stat(
+        sample_size=n,
+        average=mean,
+        standard_deviation=0,
+        coefficient_variation=0,
+        min=min(values),
+        max=max(values),
+        median=st.median(values),
+        moda=st.mode(values),
+        excess=0.0,
+        asymmetry=0.0,
+    )
+
+data = {}
+with open(path, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+records = data.get("data", [])
+
+if records:
+    stats = analiz(records)
+    data["stat"] = asdict(stats)
+else:
+    print("Блок 'data' пустой или отсутствует")
+    stats = Stat(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    data["stat"] = asdict(stats)
 
 with open(path, "w", encoding="utf-8") as f:
-    json.dump(asdict(stats), f, ensure_ascii=False, indent=2)
+    json.dump(data, f, ensure_ascii=False, indent=4)
